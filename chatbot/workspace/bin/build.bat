@@ -1,10 +1,10 @@
 cd /d "%~dp0"
 cd ..
-if exist ".\build" rd /s /q ".\build"
-mkdir ".\build"
-xcopy .\main\app\*          .\build\ /c /e /h /r /y
-xcopy .\main\resources\*    .\build\ /c /e /h /r /y
-xcopy .\lib\*               .\build\ /c /e /h /r /y
-tar -c -v --exclude=__pycache__ -f app.tar build
-if exist ".\build" rd /s /q ".\build"
+if exist ".\app" rd /s /q ".\app"
+mkdir ".\app"
+xcopy .\main\app\*          .\app\ /c /e /h /r /y
+xcopy .\main\resources\*    .\app\ /c /e /h /r /y
+xcopy .\lib\*               .\app\ /c /e /h /r /y
+tar -c -v --exclude=__pycache__ -f app.tar app
+if exist ".\app" rd /s /q ".\app"
 move ./app.tar /home/facefit/app.tar
