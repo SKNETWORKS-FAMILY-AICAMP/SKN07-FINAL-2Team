@@ -60,6 +60,10 @@
                     <button id="screenShot">사진촬영(임시)</button>
                     <button id="stopCam">캠 끄기(임시)</button>
                     <button id="clearCanvas">초기화(임시)</button>
+                    <button id="goToFile">파일전송(임시)</button>
+                    <br>
+                    <button id="addFile">파일추가(임시)</button>
+                    <button id="StopGleassesFit">피팅종료(임시)</button>
                 </div>
 
                 <!-- 화상 -->
@@ -77,6 +81,7 @@
                 <div id="camera_under">
                     <!-- 안경 스크롤 -->
                     <div id="glass_lists">
+<!-- 
                         <div class="glass_boxs">
                             <div class="glass_img">
                                 <img src="../static/img/5.png" />
@@ -133,7 +138,11 @@
                                 <li class="colorpalette" style="background-color: rgb(74, 126, 59);"></li>
                             </div>
                         </div>
+                         -->
                     </div>
+                </div>
+                <div id="camera_btn">
+                    <img src="../static/img/camera.png" />
                 </div>
             </div>
             
@@ -146,6 +155,7 @@
             <div id="chat">
                 <!-- 말풍선 -->
                 <div id="chat_talks">
+                    <!-- 
                     <div class="ai_talk">
                         <div>
                             어쩌구저쩌구구어쩌구저쩌구구어쩌구저쩌구구어쩌구저쩌구구어쩌구저쩌구구어쩌구저쩌구구어쩌구저쩌구구어쩌구저쩌구구
@@ -165,7 +175,7 @@
                         <div>
                             엄청나게 긴 장문의 문장 채우기 엄청나게 긴 장문의 문장 채우기 엄청나게 긴 장문의 문장 채우기 엄청나게 긴 장문의 문장 채우기 엄청나게 긴 장문의 문장 채우기 엄청나게 긴 장문의 문장 채우기 엄청나게 긴 장문의 문장 채우기 엄청나게 긴 장문의 문장 채우기 엄청나게 긴 장문의 문장 채우기 엄청나게 긴 장문의 문장 채우기 엄청나게 긴 장문의 문장 채우기 엄청나게 긴 장문의 문장 채우기 엄청나게 긴 장문의 문장 채우기 엄청나게 긴 장문의 문장 채우기 엄청나게 긴 장문의 문장 채우기 엄청나게 긴 장문의 문장 채우기 엄청나게 긴 장문의 문장 채우기 엄청나게 긴 장문의 문장 채우기 엄청나게 긴 장문의 문장 채우기 엄청나게 긴 장문의 문장 채우기 엄청나게 긴 장문의 문장 채우기 엄청나게 긴 장문의 문장 채우기 엄청나게 긴 장문의 문장 채우기 엄청나게 긴 장문의 문장 채우기 엄청나게 긴 장문의 문장 채우기
                         </div>
-                    </div>
+                    </div> -->
     
                 </div>
             </div>
@@ -173,7 +183,7 @@
             <div id="chat_inputs">
                 <div>
                     <!-- <div id="add_file"> + </div> -->
-                    <textarea id="text_input" placeholder="Type a message..."></textarea>
+                    <input id="text_input" placeholder="Type a message..."></input>
                     <button id="summit_btn">GO</button>
                 </div>
             </div>
@@ -182,6 +192,6 @@
         
     </div>
 
-
+    <input type="file" id="file_input" accept="image/*" style="display: none;" />
 </body>
 </html>
