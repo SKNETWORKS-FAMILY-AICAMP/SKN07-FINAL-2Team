@@ -67,7 +67,9 @@ function summit_chat(){
                     stopCamera();
                     $('#chat_talks').empty();
                     $('#chat_talks').append(`<div class="ai_talk"><div>${response_message}</div></div>`);
-                    setupCamera();
+                    setTimeout(function () {
+                        setupCamera();
+                    }, 500);
                 } 
                 else if(task_id == 'T01'){ // 사진 캡쳐
                     console.log(task_id+'실행');
@@ -77,6 +79,9 @@ function summit_chat(){
                         setTimeout(function () {
                             rotationFace();
                         }, 500);
+                    }else{
+                        setupCamera();
+                        rotationFace();
                     }
                 }
                 else if(task_id == 'T02'){ // 사진업로드
