@@ -35,6 +35,7 @@ function summit_chat(){
     console.log('채팅전송');
     let message = $('#text_input').val().replace(/\n/g, ' ');
     console.log('message: '+message);
+    
     if (message != ''){
         $('#chat_talks').append(`<div class="hm_talk"><div>${message}</div></div>`)
         $('#chat_talks').scrollTop($('#chat_talks')[0].scrollHeight);
@@ -54,22 +55,15 @@ function summit_chat(){
             success: function (result) {
                 console.log(result);
                 loading_fin();
-                // msg_no += 1;
-                console.log(result);
                 let task_id = result.task_id;
                 let response_message = result.response_message;
                 let resutl_data = result.data;
                 
                 if (task_id == 'T00'){ // 초기화
-                    console.log(task_id+'실행');
-                    msg_no = 0;
-                    clearCanvas();
-                    stopCamera();
-                    $('#chat_talks').empty();
-                    $('#chat_talks').append(`<div class="ai_talk"><div>${response_message}</div></div>`);
                     setTimeout(function () {
-                        setupCamera();
+                        location.reload();
                     }, 500);
+                    
                 } 
                 else if(task_id == 'T01'){ // 사진 캡쳐
                     console.log(task_id+'실행');
@@ -81,7 +75,9 @@ function summit_chat(){
                         }, 500);
                     }else{
                         setupCamera();
-                        rotationFace();
+                        setTimeout(function () {
+                            rotationFace();
+                        }, 500);
                     }
                 }
                 else if(task_id == 'T02'){ // 사진업로드
@@ -93,7 +89,6 @@ function summit_chat(){
                     console.log(task_id+'실행');
                     $('#chat_talks').append(`<div class="ai_talk"><div>${response_message}</div></div>`);
                     
-                    /////////////////// 해당 내용 추후 resutl_data 보고 변경
                     let fit_chat ='';
                     resutl_data.face_type_list.forEach(function(shape, idx) { 
                         console.log(shape);
@@ -111,10 +106,8 @@ function summit_chat(){
                     console.log(task_id+'실행');
                     $('#chat_talks').append(`<div class="ai_talk"><div>${response_message}</div></div>`);
 
-                    /////////////////// 해당 내용 추후 resutl_data 보고 변경
                     let fit_chat ='';
                     resutl_data.forEach(function(shape, idx) { 
-                        console.log(shape);
                         fit_chat += `
                             <div class='fit_chat'>
                                 <h4>${shape.title}</h4>
@@ -131,7 +124,6 @@ function summit_chat(){
 
                     let fit_chat ='';
                     resutl_data.forEach(function(shape, idx) { 
-                        console.log(shape);
                         fit_chat += `
                             <div class='fit_chat'>
                                 <h4>${shape.title}</h4>
@@ -186,6 +178,10 @@ function summit_chat(){
                     $('#chat_talks').append(`<div class="ai_talk"><div>${response_message}</div></div>`);
                 }
                 scrolling_chat();
+                setTimeout(function () {
+                    // setupCamera();
+                    scrolling_chat();
+                }, 500);
             },
             error: function (xhr, status, error) {
                 loading_fin();
@@ -298,7 +294,7 @@ function file_ready(){
     }) 
 }
 
-// 사진에 안경 착용 
+// 안경정보 전달 
 function set_glassesfit_photo(glasses_sub_id){
     $.ajax({
         url:'https://facefit.halowing.com/glasses/'+glasses_sub_id+'/',
@@ -581,7 +577,7 @@ function glasses_list_views(list){ //이후 데이터 모양보고 작성하기.
     console.log('glasses_list_views실행행');
     let glasses_list = list.glasses_list;
     console.log(glasses_list);
-    $('#glass_lists').val();
+    $('#glass_lists').val('');
     let gl_types = [];
     glasses_list.forEach(function(glasses, idx) {
         let glasses_idx = glasses.glasses_sub_id
@@ -669,7 +665,8 @@ async function setupCamera() {
     console.log('setupCamera실행');
     try{
 
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true});
+        // const stream = await navigator.mediaDevices.getUserMedia({ video: true});
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { width: 1280, height: 720 }});
         videoStream = stream;
         video.srcObject = stream;
         statusText.textContent = "카메라 on";

@@ -242,7 +242,7 @@ body {
     top: 40px;
     left: 150px;
     width: 100%;
-    /* display: none; */
+    display: none;
 }
 
 
@@ -302,6 +302,7 @@ body {
 #chat_talks>div>div{
     padding: 10px;
     border-radius: 10px;
+    overflow-wrap: anywhere;
 }
 
 
