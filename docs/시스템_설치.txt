@@ -1,0 +1,350 @@
+시스템 설치
+
+Web Server
+
+1. Rocky Linux Container 만들기 및 실행
+> docker run -d --privileged --name web -p 10022:22 -p 53:53 -p80:80 -p 443:443 rockylinux/rockylinux init 
+
+2. package upgrade
+> dnf upgrade -y
+
+3. 원격 접속을 위한 tool 설치
+> dnf install -y net-tools openssh-server passwd procps
+
+4. ssh 의 root 원격 접속 허용을 위한 sshd_config 파일의 내용 수정
+> vi /etc/ssh/sshd_config
+-----------
+PermitRootLogin prohibit-password 를 다음과 같이 변경. PermitRootLogin yes
+PasswordAuthentication no 를 다음과 같이 변경. PasswordAuthentication yes
+-----------
+
+5. root password 설정
+> passwd
+
+6. ssh 
+6.1. 실행
+> systemctl start sshd
+
+6.2. ssh enable 설정
+> systemctl enable sshd
+
+7. 계정 
+7.1. 생성
+> useradd firefly
+
+7.2. 암호 설정
+> passwd firefly
+
+8. sudo 권한 생성
+8.1. sudo  설치
+> dnf install sudo
+
+8.2. config 파일 수정, 
+> visudo
+---	
+## Read drop-in files from /etc/sudoers.d (the # here does not mean a comment)
+#includedir /etc/sudoers.d
+firefly     ALL=(ALL)	ALL
+---
+
+9. Nginx 설치
+9.1. package install
+> dnf install nginx
+
+9.2. 작업 디렉토리 생성
+> mkdir -p /home/facefit/html
+> mkdir -p /home/facefit/images
+> chown -R firefly:firefly /home/facefit
+> chown -R firefly:firefly /home/images
+
+9.3. service 실행
+> systemctl start nginx
+
+9.4 enable
+> systemctl enable nginx
+
+9.5. ssl 인증서 설치
+9.5.1. key 파일 복사
+/etc/pki/nginx/private/facefit.key
+9.5.2. crt 파일 복사
+/etc/pki/nginx/facefit.crt
+9.5.3. nginx.conf 파일 수정
+> vi /etc/nginx/nginx.conf
+---
+sendfile            on;
+tcp_nopush          on;
+tcp_nodelay         on;
+keepalive_timeout   65;
+types_hash_max_size 2048;
+
+client_max_body_size 5M;
+
+server {
+	listen       443 ssl http2 default_server;
+	listen       [::]:443 ssl http2 default_server;
+	server_name  facefit.halowing.com;
+	root         /home/facefit/html;
+
+	ssl_certificate "/etc/pki/nginx/facefit.crt";
+	ssl_certificate_key "/etc/pki/nginx/private/facefit.key";
+	ssl_session_cache shared:SSL:1m;
+	ssl_session_timeout  10m;
+	ssl_ciphers PROFILE=SYSTEM;
+	ssl_prefer_server_ciphers on;
+
+	# Load configuration files for the default server block.
+	include /etc/nginx/default.d/*.conf;
+
+	 location / {
+		return 301 https://$host$request_uri;
+	}
+
+
+
+	error_page 404 /404.html;
+		location = /40x.html {
+	}
+
+	error_page 500 502 503 504 /50x.html;
+		location = /50x.html {
+	}
+}
+# Settings for a TLS enabled server.
+#
+server {
+	listen       443 ssl http2 default_server;
+	listen       [::]:443 ssl http2 default_server;
+	server_name  facefit.halowing.com;
+	root         /home/facefit/html;
+
+	ssl_certificate "/etc/pki/nginx/facefit.crt";
+	ssl_certificate_key "/etc/pki/nginx/private/facefit.key";
+	ssl_session_cache shared:SSL:1m;
+	ssl_session_timeout  10m;
+	ssl_ciphers PROFILE=SYSTEM;
+	ssl_prefer_server_ciphers on;
+
+	# Load configuration files for the default server block.
+	include /etc/nginx/default.d/*.conf;
+
+	location / {
+	}
+
+	location /images/ {
+		alias /home/facefit/images/;
+		autoindex on; # 선택 사항: 디렉토리 목록 표시
+	}
+
+	location /welcome/ {
+		proxy_pass http://172.17.0.3:8000/welcome/;
+		proxy_http_version 1.1;
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection 'upgrade';
+		proxy_set_header Host $host;
+		proxy_cache_bypass $http_upgrade;
+	}
+
+	location /chat/ {
+		proxy_pass http://172.17.0.3:8000/chat/;
+		proxy_http_version 1.1;
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection 'upgrade';
+		proxy_set_header Host $host;
+		proxy_cache_bypass $http_upgrade;
+	}
+	 location /file/ {
+		proxy_pass http://172.17.0.3:8000/file/;
+		proxy_http_version 1.1;
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection 'upgrade';
+		proxy_set_header Host $host;
+		proxy_cache_bypass $http_upgrade;
+	}
+
+	location /webcam/ {
+		proxy_pass http://172.17.0.3:8000/webcam/;
+		proxy_http_version 1.1;
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection 'upgrade';
+		proxy_set_header Host $host;
+		proxy_cache_bypass $http_upgrade;
+	}
+
+	location /glasses/ {
+		proxy_pass http://172.17.0.3:8000/glasses/;
+		proxy_http_version 1.1;
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection 'upgrade';
+		proxy_set_header Host $host;
+		proxy_cache_bypass $http_upgrade;
+	}
+
+	location /docs {
+		proxy_pass http://172.17.0.3:8000;
+		proxy_http_version 1.1;
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection 'upgrade';
+		proxy_set_header Host $host;
+		proxy_cache_bypass $http_upgrade;
+	}
+
+	location /openapi.json {
+		proxy_pass http://172.17.0.3:8000/openapi.json;
+		proxy_http_version 1.1;
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection 'upgrade';
+		proxy_set_header Host $host;
+		proxy_cache_bypass $http_upgrade;
+	}
+
+	error_page 404 /404.html;
+		location = /40x.html {
+	}
+
+	error_page 500 502 503 504 /50x.html;
+		location = /50x.html {
+	}
+}
+---
+9.5. nginx 재시작
+> systemctl restart nginx
+
+10. 정적 데이터 복사
+10.1. 안경 이미지
+/home/facefit/images 디렉토리에 glasses.tar 파일 복사
+> cd /home/facefit/images
+> tar xvf glasses.tar
+
+10.2. 얼굴형 이미지
+/home/facefit/images 디렉토리에 face_shape.tar 파일 복사
+> cd /home/facefit/images
+> tar xvf face_shape.tar
+
+10.3. Application
+/home/facefit/images 디렉토리에 html.tar 파일 복사
+> cd /home/facefit/
+> tar xvf html.tar
+
+
+
+
+
+
+
+DB Server
+1. Docker Image 설치 및 실행
+> docker pull mariadb/latest
+> docker run --restart=always --name mariadb -p 3306:3306  \
+           --mount source=mdb_volume,target=/var/lib/mysql 
+           -e MARIADB_ROOT_PASSWORD=dreamiscomming 
+           -e MARIADB_DATABASE=facefit 
+           -d mariadb:latest
+		   
+2. 계정 설정
+> use mysel;
+> create user firefly@’%’ identified by ‘{password};
+> grant all privileges on facefit.* to firefly@’%’;
+> flush  privileges;
+
+
+
+
+API Server
+1. Rocky Linux Container 만들기 및 실행
+> docker run -d --privileged --name api -p 50022:22 -p 58000:8000  rockylinux/rockylinux init 
+
+2. package upgrade
+> dnf upgrade -y
+
+3. 원격 접속을 위한 tool 설치
+> dnf install -y net-tools openssh-server passwd procps
+
+4. ssh 의 root 원격 접속 허용을 위한 sshd_config 파일의 내용 수정
+> vi /etc/ssh/sshd_config
+-----------
+PermitRootLogin prohibit-password 를 다음과 같이 변경. PermitRootLogin yes
+PasswordAuthentication no 를 다음과 같이 변경. PasswordAuthentication yes
+-----------
+
+5. root password 설정
+> passwd
+
+6. ssh 
+6.1. 실행
+> systemctl start sshd
+
+6.2. ssh enable 설정
+> systemctl enable sshd
+
+7. 계정 
+7.1. 생성
+useradd firefly
+7.2. 암호 설정
+> passwd firefly
+
+8. sudo 권한 생성
+8.1. sudo  설치
+> dnf install sudo
+
+ 8.2. config 파일 수정, 
+> visudo
+—	
+## Read drop-in files from /etc/sudoers.d (the # here does not mean a comment)
+#includedir /etc/sudoers.d
+> firefly     ALL=(ALL)	ALL
+
+9. Application 설치
+9.1. 디렉토리 생성
+> mkdir /home/facefit/
+9.2. app.tar 파일을 /home/facefit/ 폴더에 upload
+
+9.3. app.tar 파일 압축 해제
+> tar xvf app.tar
+
+9.4 env 파일 생성
+> vi ./app/.env
+—
+OPENAI_API_KEY='your key'
+PYTHONPATH=$PYTHONPATH:/home/facefit/app
+db_url=mysql://{id}:{passwd}@{db_server}:3306/{db_schema}
+—
+9.5. CMAKE 설치
+> sudo yum install python3.12-devel gcc gcc-c++ cmake
+
+9.6. SQLite 3.35 설치
+9.6.1. 소스 다운로드 
+> sudo yum install wget 
+> wget https://sqlite.org/2025/sqlite-autoconf-3490100.tar.gz
+> tar xzf sqlite-autoconf-3490100.tar.gz
+
+9.6.2. 소스 컴파일 
+> cd sqlite-autoconf-3490100 
+> ./configure --enable-fts5 
+> sudo make 
+> sudo make install
+
+9.6.3. LD_LIBRARY_PATH 설정: 
+> vi ~/.bashrc_profile 
+—
+export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+—
+
+9.7. OPENCV Library 설치
+> sudo yum install mesa-libGL-devel
+
+10. pip package 설치
+/home/facefit 디렉토리에 requirements.txt 파일을 복사한다.
+> cd /home/facefit/
+> pip3 install -r requirements.txt
+
+11. dilb  package 설치
+dlib 를 user 권한으로 설치하면 컴파일 된 라이브러리 설치시 권한이 없어서 에러 난다. 
+> sudo pip3 install dlib
+
+12. 라이브러리 설치
+12.1. 안면 인식 라이브러리 설치
+/home/facefit/ml/model/ 디렉토리에  shape_predictor_68_face_landmarks.dat 파일을 복사한다.
+
+12.2. 안면인식 학습 모델 설치
+/home/facefit/ml/model/ 디렉토리에  vgg16.keras 파일을 복사한다.
+

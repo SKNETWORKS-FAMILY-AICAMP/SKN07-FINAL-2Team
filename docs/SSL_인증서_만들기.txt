@@ -1,0 +1,73 @@
+# rootCA key
+openssl genrsa -des3 -out ca.key 2048
+
+openssl req -new -x509 -days 365 -key ca.key -out ca.crt -sha256
+
+
+--------
+# Server Key
+openssl genrsa -out facefit.key 4096
+
+openssl rsa -noout -text -in facefit.key
+
+openssl req -new -out facefit.csr -key facefit.key -config facefit_san.cnf -subj "/C=KR/ST=Seoul/L=Seoul/O=FaceFit/OU=DevOpsTeam/CN=facefit.halowing.com/emailAddress=sgkim@halowing.com"
+
+openssl req -text -noout -in facefit.csr
+
+# openssl x509 -req -CA ca.crt -CAkey ca.key -days 365 -in facefit.csr -out facefit.crt -sha256 -CAcreateserial
+openssl x509 -req -CA ca.crt -CAkey ca.key -days 365 -in facefit.csr -out facefit.crt -sha256 -CAcreateserial -extfile facefit_san.ext
+
+openssl x509 -noout -text -in facefit.crt
+
+openssl pkcs12 -export -in facefit.crt -inkey facefit.key -out facefit.p12 -name facefit
+
+
+
+---
+# facefit_san.cnf
+
+[req]
+distinguished_name = req_distinguished_name
+req_extensions = v3_req
+
+[req_distinguished_name]
+countryName = Country Name (2 letter code)
+countryName_default = KR
+countryName_min     = 2
+countryName_max     = 2
+stateOrProvinceName = State or Province Name (full name)
+stateOrProvinceName_default = Seoul
+localityName = Locality Name (eg, city)
+localityName_default = Seoul
+0.organizationName = Organization Name (eg, company)
+0.organizationName_default = FaceFit
+organizationalUnitName = Organization Unit Name (eg, team)
+organizationalUnitName_default = DevOpsTeam
+commonName         = Common Name (e.g. server FQDN or YOUR name)
+commonName_default = facefit.halowing.com
+commonName_max	   = 64
+emailAddress         = Email Address
+emailAddress_default = sgkim@halowing.com
+emailAddress_max     = 64
+
+[v3_req]
+basicConstraints = CA:FALSE
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = facefit.halowing.com
+
+----------
+# facefit_san.ext
+
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName = @alt_names
+
+[alt_names]
+# DOMAIN NAMES
+DNS.1 = facefit.halowing.com
+
+---

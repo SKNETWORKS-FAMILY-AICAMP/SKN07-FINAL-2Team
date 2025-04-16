@@ -1,0 +1,11 @@
+{
+    "terminal.integrated.env.linux": {"PYTHONPATH": "${workspaceFolder}/main/app;${workspaceFolder}/main/resources;${workspaceFolder}/lib"},
+    "terminal.integrated.env.windows": {
+        "PYTHONPATH": "${workspaceFolder}/main/app;${workspaceFolder}/main/resources;${workspaceFolder}/lib"
+    },
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}/lib",
+        "${workspaceFolder}/main/app",
+        "${workspaceFolder}/main/resources"
+    ]
+}

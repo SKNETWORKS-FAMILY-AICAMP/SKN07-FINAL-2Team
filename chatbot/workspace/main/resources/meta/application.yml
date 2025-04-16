@@ -1,0 +1,25 @@
+app:
+  chromadb:
+    path: '/home/facefit/vdb/'
+    collection:
+      name:
+        command: 'commands'
+        glasses: 'glasses'
+    embedding:
+      model_name: 'text-embedding-ada-002' #'jhgan/ko-sroberta-multitask' # 'sentence-transformers/all-MiniLM-L6-v2'
+  file:
+    storage:
+      root: '/home/facefit/images/'
+      # prefix:
+      #   face: 'face'
+      #   glasses: 'glasses'
+    url: 'https://facefit.halowing.com/images/'
+  ml:
+    model: 
+      face_shape_classifier: '/home/facefit/ml/model/vgg16.keras'
+      face_shape_landmarks: '/home/facefit/ml/model/shape_predictor_68_face_landmarks.dat'
+
+logging:
+  file_path: '/home/facefit/logs/app.log'
+  log_level: 'debug'
+  
