@@ -126,6 +126,10 @@ class AiCommanderSearch:
         self._log.debug('user_msg : %s', user_msg)
         self._log.debug('#################################################')
         chat_history = []
+        # 최근 히스토리만 사용하게 변경
+        if len(chat_history) > 3:
+            chat_history = chat_history[-3:]
+
         for item in chat_list:
             if item.request_message is not None:
                 chat_history.append(HumanMessage(content=item.request_message))

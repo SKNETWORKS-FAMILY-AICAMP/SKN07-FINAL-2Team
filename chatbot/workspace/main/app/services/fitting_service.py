@@ -181,11 +181,25 @@ class FittingService:
                     int( (left_eyebrow_points[1][1] + right_eyebrow_points[0][1] - glasses_rotated.shape[0] ) / 2 ))
         
         # 안경 합성
-        for i in range(glasses_rotated.shape[0]):
-            for j in range(glasses_rotated.shape[1]):
-                if glasses_rotated[i, j, 3] > 0:  # 투명한 부분 제외
-                    face_image[top_left[1] + i, top_left[0] + j] = glasses_rotated[i, j, :3]
-       
+        # for i in range(glasses_rotated.shape[0]):
+        #     for j in range(glasses_rotated.shape[1]):
+        #         if glasses_rotated[i, j, 3] > 0:  # 투명한 부분 제외
+        #             face_image[top_left[1] + i, top_left[0] + j] = glasses_rotated[i, j, :3]
+        
+        # 전경 이미지에서 알파 채널 분리
+        alpha = glasses_rotated[:, :, 3] / 255.0
+        alpha = np.expand_dims(alpha, axis=2)
+
+        # 배경 이미지의 해당 영역 추출
+        face_image_cropped = face_image[top_left[1]:top_left[1] + glasses_rotated.shape[0],
+                                        top_left[0]:top_left[0] + glasses_rotated.shape[1]].astype(float)
+        glasses_rgb = glasses_rotated[:, :, :3].astype(float)
+
+        # 알파 블렌딩을 사용하여 합성
+        blended = alpha * glasses_rgb + (1 - alpha) * face_image_cropped
+        face_image[top_left[1]:top_left[1] + glasses_rotated.shape[0],
+                   top_left[0]:top_left[0] + glasses_rotated.shape[1]] = blended.astype(np.uint8)
+
         return face_image
 
     def __get_output_file_model(self, _filename:str) -> tuple[StoredFileModel, str] :

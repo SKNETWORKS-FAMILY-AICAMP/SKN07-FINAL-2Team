@@ -49,10 +49,13 @@ class AbstractTask(ABC):
 
 class CommandAnalysisTask(AbstractTask):
     """
-    Analyze command.
+    CommandAnalysisTask
+
+    task_id 를 반환하여 브라우저에게, 수행해야할 명령을 전달함.
     """
-    # def __init__(self, task_id:str, task_name:str) -> None:
-    #     super(CommandAnalysisTask,self).__init__(task_id, task_name)
+    def __init__(self, task_id:str, task_name:str) -> None:
+        super(CommandAnalysisTask,self).__init__(task_id, task_name)
+        self._message = self._res_msg['res.' + task_id]
 
     async def run(self, session: ChatSessionData, model:ChatModel):
         """
@@ -61,19 +64,22 @@ class CommandAnalysisTask(AbstractTask):
         if model.task_id != self.task_id:
             return None
 
-        model.response_message = self._res_msg['res.' + self.task_id]
+        model.response_message = self._message
         self._log.debug('response = %s',model)
 
         return model
 
 class CommandAnalysisTask2(AbstractTask):
     """
-    Analyze command.
+    CommandAnalysisTask2
 
-    응답의 task_id가 특별히 action을 하는 것이 아니고, 메시지만이 의미가 있을 때 사용.
+    입려한 task_id와 결과로 내보내야할 task_id가 다른 경우 사용.
+    response_message는 입력한 task_id를 이용함.
     """
-    # def __init__(self, task_id:str, task_name:str) -> None:
-    #     super(CommandAnalysisTask,self).__init__(task_id, task_name)
+    def __init__(self, task_id:str, task_name:str, output_task_id:str) -> None:
+        super(CommandAnalysisTask2,self).__init__(task_id, task_name)
+        self._output_task_id = output_task_id
+        self._message = self._res_msg['res.' + task_id]
 
     async def run(self, session: ChatSessionData, model:ChatModel):
         """
@@ -82,12 +88,10 @@ class CommandAnalysisTask2(AbstractTask):
         if model.task_id != self.task_id:
             return None
 
-        model.response_message = self._res_msg['res.' + self.task_id]
+        model.response_message = self._message
         self._log.debug('response = %s',model)
 
-        if len(model.task_id.split('-')) > 0:
-            model.task_id = self.TALK_ID
-
+        model.task_id = self._output_task_id
         return model
 
 class SelectCameraTask(AbstractTask):

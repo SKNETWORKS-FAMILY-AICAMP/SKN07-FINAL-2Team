@@ -129,7 +129,7 @@ class ChatSessionHelper:
         ''' create_session'''
         _session_id = uuid4()
         _data = ChatSessionData(session_id=_session_id, created_datetime=datetime.today())
-        self._log.debug('[%s] session_id : %s, data : %s', sys._getframe().f_code.co_name, _session_id.hex, _data)
+        # self._log.debug('[%s] session_id : %s, data : %s', sys._getframe().f_code.co_name, _session_id.hex, _data)
         
         await self._backend.create(_session_id, _data)
         self._cookie.attach_to_response(response=_response, session_id=_session_id)
@@ -141,16 +141,16 @@ class ChatSessionHelper:
         session_data: ChatSessionData = await self._backend.read(session_id=session_id)
         if session_data is None:
             raise HTTPException(status_code=403, detail="invalid session")
-        self._log.debug('[%s] session_data : %s', sys._getframe().f_code.co_name, session_data)
+        # self._log.debug('[%s] session_data : %s', sys._getframe().f_code.co_name, session_data)
         return session_data
     
     async def remove_session(self, response:Response, session_id:UUID):
         ''' remove_session'''
-        self._log.debug('[%s] session_id : %s', sys._getframe().f_code.co_name, session_id.hex)
+        # self._log.debug('[%s] session_id : %s', sys._getframe().f_code.co_name, session_id.hex)
         try:
             session_data: ChatSessionData = await self._backend.read(session_id=session_id)
             if session_data is None:
-                self._log.debug('[%s] session_data is None, session_id = %s', sys._getframe().f_code.co_name, session_id.hex)
+                # self._log.debug('[%s] session_data is None, session_id = %s', sys._getframe().f_code.co_name, session_id.hex)
                 return None
             await self._backend.delete(session_id)
             self._cookie.delete_from_response(response)
@@ -181,7 +181,7 @@ class ChatSessionHelper:
         #     session_data.camera_state = CameraState.OFF
 
         session_data.camera_state = camera_state
-        self._log.debug('[%s] session_data : %s', sys._getframe().f_code.co_name, session_data)
+        # self._log.debug('[%s] session_data : %s', sys._getframe().f_code.co_name, session_data)
         await self._backend.update(session_id=session_id, data=session_data )
 
     async def add_image(self, session_id: UUID, file_model:StoredFileModel) -> None:
@@ -193,7 +193,7 @@ class ChatSessionHelper:
         '''
         session_data: ChatSessionData = await self._backend.read(session_id=session_id)
         session_data.upload_images.append(file_model)
-        self._log.debug('[%s] session_data : %s', sys._getframe().f_code.co_name, session_data)
+        # self._log.debug('[%s] session_data : %s', sys._getframe().f_code.co_name, session_data)
         await self._backend.update(session_id=session_id, data=session_data )
 
     async def add_glasses(self, session_id: UUID, glasses: GlassesSubModel) -> None:
@@ -202,7 +202,7 @@ class ChatSessionHelper:
         '''
         session_data: ChatSessionData = await self._backend.read(session_id=session_id)
         session_data.glassess.append(glasses)
-        self._log.debug('[%s] session_data : %s', sys._getframe().f_code.co_name, session_data)
+        # self._log.debug('[%s] session_data : %s', sys._getframe().f_code.co_name, session_data)
         await self._backend.update(session_id=session_id, data=session_data )
 
     async def add_face_type(self, session_id: UUID, face_type: FaceShapeModel) -> None:
@@ -211,7 +211,7 @@ class ChatSessionHelper:
         '''
         session_data: ChatSessionData = await self._backend.read(session_id=session_id)
         session_data.face_type = face_type
-        self._log.debug('[%s] session_data : %s', sys._getframe().f_code.co_name, session_data)
+        # self._log.debug('[%s] session_data : %s', sys._getframe().f_code.co_name, session_data)
         await self._backend.update(session_id=session_id, data=session_data )
 
     async def add_analyze_data(

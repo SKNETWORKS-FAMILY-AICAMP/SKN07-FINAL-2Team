@@ -90,7 +90,7 @@ class ChatTaskManagerContext:
         cls._tmanager.register_task(base_tasks.CommandAnalysisTask('T09','camera on'))
         cls._tmanager.register_task(base_tasks.CommandAnalysisTask('T10','camera off'))
         cls._tmanager.register_task(base_tasks.CommandAnalysisTask('T20-01','upload file'))
-        cls._tmanager.register_task(base_tasks.CommandAnalysisTask2('T20-02','deny upload file'))
+        cls._tmanager.register_task(base_tasks.CommandAnalysisTask2('T20-02','deny upload file', 'T09'))
         cls._tmanager.register_task(base_tasks.CommandAnalysisTask('T90','init'))
         cls._tmanager.register_task(base_tasks.FaceListTask())
         cls._tmanager.register_task(base_tasks.GlassesListTask())

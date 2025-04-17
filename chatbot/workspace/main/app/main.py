@@ -187,7 +187,7 @@ async def get_glasses_info(
     _chat_data = ChatModel.model_validate({
         'msg_no': 9999,
         'request_message': 'select a glasses id= ' + str(glasses_sub_id),
-        'response_message': f'선택하신 안경은 {_rs.brand_name} 에서 만든 {_rs.product_name} 안경입니다. 색상은 {_rs.color_code.color_name} 입니다. 상세 정보는 {_rs.url}에서 확인 가능하십니다.  안경 피팅을 해보시겠습니까?',
+        'response_message': f'선택하신 안경은 {_rs.brand_name} 에서 만든 {_rs.product_name} 안경입니다. 색상은 {_rs.color_code.color_name} 입니다. 상세 정보는 <a href="{_rs.url}" target="_blank">여기</a>에서 확인 가능하십니다.  안경 피팅을 해보시겠습니까?',
         'task_id': "T99",
         'data': {'glasses': _rs},
         'request_datatime': datetime.today(),
