@@ -60,7 +60,15 @@ function summit_chat(){
                 let resutl_data = result.data;
                 
                 if (task_id == 'T00'){ // 초기화
+                    // console.log(task_id+'실행');
+                    // stop_glassesfit();
+                    // $("#camera_under").hide();
+                    // clearCanvas();
+                    // stopCamera();
+                    // $('#chat_talks').empty();
+                    // $('#chat_talks').append(`<div class="ai_talk"><div>${response_message}</div></div>`);
                     setTimeout(function () {
+                        // setupCamera();
                         location.reload();
                     }, 500);
                     
@@ -138,7 +146,7 @@ function summit_chat(){
                     console.log(task_id+'실행');  
                     setupCamera();
                     $("#camera_under").show();
-                    glasses_list_views(resutl_data); // 추후 수정 필요
+                    glasses_list_views(resutl_data); 
                     $('#chat_talks').append(`<div class="ai_talk"><div>${response_message}</div></div>`);
                 } 
                 else if(task_id == 'T07'){ // 안경 상세 정보 요청
@@ -573,11 +581,11 @@ function list_and_btn(){
 }
 
 // 안경 리스트 나열 
-function glasses_list_views(list){ //이후 데이터 모양보고 작성하기....
+function glasses_list_views(list){ 
     console.log('glasses_list_views실행행');
     let glasses_list = list.glasses_list;
     console.log(glasses_list);
-    $('#glass_lists').val('');
+    $('#glass_lists').empty();
     let gl_types = [];
     glasses_list.forEach(function(glasses, idx) {
         let glasses_idx = glasses.glasses_sub_id
