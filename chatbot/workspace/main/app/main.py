@@ -130,10 +130,10 @@ async def create_file(
         raise ex
 
     # 얼굴형 정보 조회
-    _log.debug('Start reading DB')
+    # _log.debug('Start reading DB')
     _face_shape = await face_read_service.find_one(_face_type)
-    _log.debug('_face_type_model = %s',_face_shape)
-    _log.debug('End reading DB')
+    # _log.debug('_face_type_model = %s',_face_shape)
+    # _log.debug('End reading DB')
 
     # 응답 데이터 만들기
     _chat = ChatModel.model_validate({
@@ -187,7 +187,7 @@ async def get_glasses_info(
     _chat_data = ChatModel.model_validate({
         'msg_no': 9999,
         'request_message': 'select a glasses id= ' + str(glasses_sub_id),
-        'response_message': f'선택하신 안경은 {_rs.brand_name} 에서 만든 {_rs.product_name} 안경입니다. 색상은 {_rs.color_code.color_name} 입니다. 상세 정보는 <a href="{_rs.url}" target="_blank">여기</a>에서 확인 가능하십니다.  안경 피팅을 해보시겠습니까?',
+        'response_message': f'선택하신 안경은 {_rs.brand_name} 에서 만든 {_rs.product_name} 안경입니다. 색상은 {_rs.color_code.color_name} 입니다. 상세 정보는 <a href="{_rs.url}" target="_blank" style="font-weight: bold;font-color:red;">"여기"</a>에서 확인 가능하십니다.  안경 피팅을 해보시겠습니까?',
         'task_id': "T99",
         'data': {'glasses': _rs},
         'request_datatime': datetime.today(),
