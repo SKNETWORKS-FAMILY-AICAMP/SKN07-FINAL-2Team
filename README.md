@@ -56,18 +56,39 @@
 ## 4. 기술 Stack
 ### Frontend
 ## 4. 기술스택
-![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python&logoColor=white)
-![LangChain](https://img.shields.io/badge/LangChain-0.1.16-orange)
-![OpenAI GPT-3.5 turbo](https://img.shields.io/badge/OpenAI-GPT--3.5--turbo-blueviolet?logo=openai&logoColor=white)
-![OpenAI GPT-4](https://img.shields.io/badge/OpenAI-GPT--4-blueviolet?logo=openai&logoColor=white)
-![Chroma](https://img.shields.io/badge/Chroma-Vector%20DB-0091FF?style=flat&logo=pinecone&logoColor=white)
-![MySQL](https://img.shields.io/badge/MariaDB-003545?style=flat-square&logo=mariaDB&logoColor=white)
+## 🛠️ 기술 스택
 
-<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white">
-<img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white">
-<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white">
-<img src="https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white">
-<img src="https://img.shields.io/badge/jquery-0769AD?style=for-the-badge&logo=jquery&logoColor=white">
+### Backend
+![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.110.0-green?logo=fastapi&logoColor=white)
+![Uvicorn](https://img.shields.io/badge/Uvicorn-ASGI-lightgrey?logo=python&logoColor=white)
+![TortoiseORM](https://img.shields.io/badge/Tortoise--ORM-ORM-blueviolet)
+
+### Frontend
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
+![jQuery](https://img.shields.io/badge/jQuery-0769AD?logo=jquery&logoColor=white)
+![Nginx](https://img.shields.io/badge/Nginx-009639?logo=nginx&logoColor=white)
+
+### Data Modeling
+![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?logo=tensorflow&logoColor=white)
+![OpenCV](https://img.shields.io/badge/OpenCV-5C3EE8?logo=opencv&logoColor=white)
+![Deep Learning](https://img.shields.io/badge/DeepLearning-NeuralNet-blue)
+
+### Database
+![ChromaDB](https://img.shields.io/badge/Chroma-VectorDB-purple)
+![MariaDB](https://img.shields.io/badge/MariaDB-003545?logo=mariadb&logoColor=white)
+
+### AI Core
+![OpenAI](https://img.shields.io/badge/OpenAI-GPT3.5-10a37f?logo=openai&logoColor=white)
+![LangChain](https://img.shields.io/badge/LangChain-Framework-379683)
+
+### 협업 및 배포
+![AWS](https://img.shields.io/badge/AWS-232F3E?logo=amazonaws&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white)
+![Discord](https://img.shields.io/badge/Discord-5865F2?logo=discord&logoColor=white)
 
 ---
 ## 5. 수행 결과(테스트/시연 페이지)
