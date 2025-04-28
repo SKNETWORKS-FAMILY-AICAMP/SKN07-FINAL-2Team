@@ -1,5 +1,5 @@
 # SKN07-FINAL-2Team
-# FINAL 프로젝트
+## FINAL 프로젝트
 
 ## 1. 팀 소개
 -
