@@ -129,7 +129,7 @@ MTCNN을 통한 얼굴 감지, VGG16 기반 얼굴형 분류, 챗봇과의 자�
 ![image](https://github.com/user-attachments/assets/55dc292f-15e7-4dcd-ba15-82b31d1cc000)
 
 ---
-## 5. 수행 결과(테스트/시연 페이지)
+## 5. 수행 결과
 ![image](https://github.com/user-attachments/assets/f107388b-a185-4e52-85e4-190b1ea7da88)
 <p align="center">
   <img src="https://github.com/user-attachments/assets/96c8ee9e-d81d-4714-ab20-fde0a62382cb" width="400"/>
