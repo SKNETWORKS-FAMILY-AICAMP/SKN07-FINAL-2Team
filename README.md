@@ -44,7 +44,7 @@
 ### 2.2 프로젝트 소개
 **facefit**은 사용자의 얼굴을 웹캠으로 촬영 후 5가지(Round, Oval, Oblong, Heart, Square)의 얼굴형으로 분석하여 어울리는 안경테을 추천하고 안경을 가상으로 착용해볼 수 있는 서비스를 제공
 MTCNN을 통한 얼굴 감지, VGG16 기반 얼굴형 분류, 챗봇과의 자연스러운 대화를 통해 맞춤형 안경 추천까지 경험 가능
-![image](https://github.com/user-attachments/assets/63184e5b-f8e0-453f-ae0e-cf0266a1ec22)
+![image](https://github.com/user-attachments/assets/183a9795-8487-4646-bbb3-24623a1225ee)
 
 ### 2.3 프로젝트 필요성 및 배경
 - 원하는 안경을 찾기 위해 여러 차례 매장을 방문해야 하는 비효율성이 존재
