@@ -6,7 +6,7 @@
   <table>
   <tr>
 
-    <th>김서진</th>
+    <th>김서진👑</th>
     <th>김성근</th>
     <th>김태희</th>
     <th>유수현</th>
