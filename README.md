@@ -23,11 +23,11 @@
   </tr>
   <tr></tr>
 
-    <th>1</th>
-    <th>2</th>
-    <th>3</th>
-    <th>4</th>
-    <th>5</th>
+    <th>PM</th>
+    <th>Backend</th>
+    <th>Data Modeling</th>
+    <th>Frontend</th>
+    <th>Data Modeling</th>
     
   </tr>
   </table>
