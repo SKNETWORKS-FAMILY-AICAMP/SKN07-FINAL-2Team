@@ -130,23 +130,11 @@ MTCNN을 통한 얼굴 감지, VGG16 기반 얼굴형 분류, 챗봇과의 자�
 
 ---
 ## 5. 수행 결과(테스트/시연 페이지)
+![image](https://github.com/user-attachments/assets/f107388b-a185-4e52-85e4-190b1ea7da88)
 <p align="center">
-  <img src="![스크린샷 2025-04-28 120445](https://github.com/user-attachments/assets/66dedb67-bee4-4f62-9a1e-ce826eb0f77d)" width="150"/>
-  <img src="![스크린샷 2025-04-28 120500](https://github.com/user-attachments/assets/03216990-0316-41be-b325-4173dab4dc13)" width="150"/>
+  <img src="![스크린샷 2025-04-28 120500](https://github.com/user-attachments/assets/0ecc7175-5897-41f8-a23c-8700b165877b)" width="300"/>
+  <img src="![스크린샷 2025-04-28 120517](https://github.com/user-attachments/assets/2a0bcdd7-10bd-4dc8-91ab-567ccdd342c7)" width="300"/>
 </p>
-
-<p align="center">
-  <img src="![스크린샷 2025-04-28 120517](https://github.com/user-attachments/assets/eda20d26-999c-4b61-b404-86d484edd4c5)" width="150"/>
-  <img src="![스크린샷 2025-04-28 120542](https://github.com/user-attachments/assets/51861c23-6d6c-4c9a-a866-b8f1071fac75)" width="150"/>
-</p>
-
-<p align="center">
-  <img src="![스크린샷 2025-04-28 120558](https://github.com/user-attachments/assets/213d0730-2361-4356-8ff6-a531a974f14a)" width="150"/>
-  <img src="![스크린샷 2025-04-28 120613](https://github.com/user-attachments/assets/d7505cc5-8b1f-48bd-adbf-0957cf19e1e8)
-" width="150"/>
-</p>
-
-![스크린샷 2025-04-28 120625](https://github.com/user-attachments/assets/4ca64311-8992-4854-8bf7-a603dc405d11)
 
 --- 
 ## 6. 한 줄 회고
