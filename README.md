@@ -15,7 +15,7 @@
   </tr>
 
   <tr>
-    <td><"![스크린샷 2025-04-28 144133](https://github.com/user-attachments/assets/c60fbea7-2a6b-418e-8ded-6484d065b8c0)" width="175" height="175"></td>
+    <td><"(https://github.com/user-attachments/assets/c60fbea7-2a6b-418e-8ded-6484d065b8c0)" width="175" height="175"></td>
     <td><img src= "![스크린샷 2025-04-28 144148](https://github.com/user-attachments/assets/95c0455b-bd3b-42f5-a6d0-6926c958edfc)" width="175" height="175"></td>
     <td><img src="![스크린샷 2025-04-28 144158](https://github.com/user-attachments/assets/0f421030-f0f6-415b-bae3-29142b1db014)" width="175" height="175"></td>
     <td><img src="![스크린샷 2025-04-28 144140](https://github.com/user-attachments/assets/e76e0720-55e4-4825-afd7-456efe2ed6f5)" width="175" height="175"></td>
